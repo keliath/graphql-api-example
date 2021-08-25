@@ -6,7 +6,7 @@ const io = require("../socket");
 const Post = require("../models/post");
 const User = require("../models/user");
 
-//=============================WITH ASYNC AWAIT=============================
+//=============================WITH ASYNC AWAIT============================= REST API
 exports.getPosts = async (req, res, next) => {
   const currentPage = req.query.page || 1;
   const perPage = 2;
