@@ -75,7 +75,10 @@ app.put("/post-image", (req, res, next) => {
   }
   return res
     .status(201)
-    .json({ message: "File Storage ", filePath: req.file.path });
+    .json({
+      message: "File Storage ",
+      filePath: req.file.path.replace("\\", "/"),
+    });
 });
 
 app.use(

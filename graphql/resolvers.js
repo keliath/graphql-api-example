@@ -203,6 +203,7 @@ module.exports = {
     return {
       ...post._doc,
       _id: post._id.toString(),
+      imageUrl: post.imageUrl.replace(/\\/g, "/"),
       createdAt: post.createdAt.toISOString(),
       updatedAt: post.updatedAt.toISOString()
     };
