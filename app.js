@@ -1,5 +1,4 @@
 const path = require("path");
-const fs = require("fs");
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -10,6 +9,7 @@ const { graphqlHTTP } = require("express-graphql");
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolver = require("./graphql/resolvers");
 const auth = require("./middleware/auth");
+const { clearImage } = require("./utils/file");
 
 const MONGODB_URI =
   "mongodb+srv://carlos:GCcq4p1hT8lTUi3T@cluster0.yhobs.mongodb.net/messages?retryWrites=true&w=majority";
@@ -73,12 +73,10 @@ app.put("/post-image", (req, res, next) => {
   if (req.body.oldPath) {
     clearImage(req.body.oldPath);
   }
-  return res
-    .status(201)
-    .json({
-      message: "File Storage ",
-      filePath: req.file.path.replace("\\", "/"),
-    });
+  return res.status(201).json({
+    message: "File Storage ",
+    filePath: req.file.path.replace("\\", "/"),
+  });
 });
 
 app.use(
@@ -117,8 +115,3 @@ mongoose
     app.listen(8080);
   })
   .catch((err) => console.log(err));
-
-const clearImage = (filePath) => {
-  filePath = path.join(__dirname, "..", filePath);
-  fs.unlink(filePath, (err) => console.error(err));
-};
